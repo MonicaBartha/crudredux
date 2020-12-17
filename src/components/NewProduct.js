@@ -1,6 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
+// Redux actions 
+import { creatingNewProductsAction } from '../actions/productActions';
+
 
 const NewProduct = () => {
+    // state of component 
+    const [ name, setName ] = useState('');
+    const [ price, setPrice ] = useState(0);
+
+    // use useDispatch and create an oter function
+    const dispatch = useDispatch();
+
+    // call the action from productActions
+    const addProduct = product => dispatch( creatingNewProductsAction(product) )
+
+    const submitNewProduct = e => {
+        e.preventDefault();
+    
+        // validate form
+        if( name.trim() === '' || price <= 0 ) {
+            return;
+        }
+        // check for errors
+    
+        // create new product
+        addProduct({
+            name, 
+            price
+        });
+    }
+
     return (
         <div className="row justify-content-center">
             <div className="col-md-8">
@@ -8,7 +39,7 @@ const NewProduct = () => {
                     <h2 className="text-center mb-4 font-weight-bold">
                         Add New Product
                     </h2>
-                    <form>
+                    <form onSubmit={submitNewProduct}>
                         <div className="form-group">
                             <label>Product Name</label>
                             <input
@@ -16,6 +47,8 @@ const NewProduct = () => {
                                 className="form-control"
                                 placeholder="Add Product Name"
                                 name="name"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
                             />
                         </div>
                         <div className="form-group">
@@ -25,6 +58,8 @@ const NewProduct = () => {
                                 className="form-control"
                                 placeholder="Add Product Price"
                                 name="price"
+                                value={price}
+                                onChange={e => setPrice(Number(e.target.value))}
                             />
                         </div>
                         <button type="submit" 
