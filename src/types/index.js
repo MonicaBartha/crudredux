@@ -2,3 +2,7 @@ export const ADD_PRODUCT = 'ADD_PRODUCT';
 // when the product is successfully added to the database
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 export const ADD_PRODUCT_ERROR = 'ADD_PRODUCT_ERROR';
+
+export const START_DOWNLOAD_PRODUCT = 'START_DOWNLOAD_PRODUCT';
+export const PRODUCT_DOWNLOAD_SUCCEED = 'PRODUCT_DOWNLOAD_SUCCEED';
+export const PRODUCT_DOWNLOAD_ERROR = 'PRODUCT_DOWNLOAD_ERROR';

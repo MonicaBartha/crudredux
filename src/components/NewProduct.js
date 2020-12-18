@@ -5,13 +5,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import { creatingNewProductsAction } from '../actions/productActions';
 
 
-const NewProduct = () => {
+// history from react-router-dom
+const NewProduct = ({history}) => {
     // state of component 
     const [ name, setName ] = useState('');
     const [ price, setPrice ] = useState(0);
 
     // use useDispatch and create an oter function
     const dispatch = useDispatch();
+
+    // get the store state
+    const loading = useSelector(state => state.products.loading);
+    const error = useSelector(state => state.products.error)
 
     // call the action from productActions
     const addProduct = product => dispatch( creatingNewProductsAction(product) )
@@ -30,6 +35,9 @@ const NewProduct = () => {
             name, 
             price
         });
+
+        // redirect to home
+        history.push('/');
     }
 
     return (
@@ -66,6 +74,8 @@ const NewProduct = () => {
                             className="btn btn-primary font-weight-bold text-uppercase d-block w-100">
                                 Add Product</button>
                     </form>
+                    { loading ? <p>Loading...</p> : null }
+                    { error ? <p className="alert alert-danger p2 mt-4 text-center">Error was found</p> : null }
                 </div>
             </div>
         </div>
