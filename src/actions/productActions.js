@@ -7,7 +7,10 @@ import {
     PRODUCT_DOWNLOAD_ERROR,
     GET_PRODUCT_DELETE,
     PRODUCT_DELETED_SUCCESS,
-    PRODUCT_DELETED_ERROR
+    PRODUCT_DELETED_ERROR,
+    GET_EDIT_PRODUCT,
+    PRODUCT_EDITED_SUCCESS,
+    PRODUCT_EDITED_ERROR
 } from '../types';
 import axiosClient from '../config/axios';
 import Swal from 'sweetalert2'
@@ -128,4 +131,16 @@ const deleteProductSuccess = () => ({
 const deleteProductError = () => ({
     type: PRODUCT_DELETED_ERROR,
     payload: true
+});
+
+// put product to edit
+export function getEditProduct(product) {
+    return (dispatch) => {
+        dispatch( obtainProductAction(product))
+    }
+}
+
+export const obtainProductAction = product => ({
+    type: GET_EDIT_PRODUCT,
+    payload: product
 })
