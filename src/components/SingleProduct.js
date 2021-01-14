@@ -1,9 +1,10 @@
 import React from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import Swal from 'sweetalert2';
 // Redux
 import {useDispatch} from 'react-redux';
-import {deleteProductAction, obtainProductAction} from '../actions/productActions';
+import {deleteProductAction, getEditProduct} from '../actions/productActions';
+import PropTypes from 'prop-types';
 
 const SingleProduct = ({product}) => {
     const {name, price, id} = product;
@@ -25,14 +26,14 @@ const SingleProduct = ({product}) => {
           }).then((result) => {
             if (result.isConfirmed) {
                 // send to action
-                dispatch( deleteProductAction(id));
+                dispatch(deleteProductAction(id));
             }
           })
         
     }
     // programmed redirect
     const redirectEdit = product => {
-        dispatch( obtainProductAction(product));
+        dispatch( getEditProduct(product));
         history.push(`/products/edit/${product.id}`)
     }
     return (
@@ -53,6 +54,10 @@ const SingleProduct = ({product}) => {
            </td>
        </tr>
     )
+}
+
+SingleProduct.propTypes = {
+    product: PropTypes.object.isRequired
 }
 
 export default SingleProduct

@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 
 // Redux actions 
 import { creatingNewProductsAction } from '../actions/productActions';
+import {showAlert, hideAlert} from '../actions/alertAction';
+import PropTypes from 'prop-types';
 
 
 // history from react-router-dom
@@ -16,7 +18,8 @@ const NewProduct = ({history}) => {
 
     // get the store state
     const loading = useSelector(state => state.products.loading);
-    const error = useSelector(state => state.products.error)
+    const error = useSelector(state => state.products.error);
+    const alert = useSelector(state => state.alert.alert)
 
     // call the action from productActions
     const addProduct = product => dispatch( creatingNewProductsAction(product) )
@@ -26,10 +29,16 @@ const NewProduct = ({history}) => {
     
         // validate form
         if( name.trim() === '' || price <= 0 ) {
+
+            const alert = {
+                msg: 'Both fields are required',
+                classes: 'alert alert-danger text-center text-uppercase p3'
+            }
+            dispatch(showAlert(alert));
             return;
         }
-        // check for errors
-    
+        // if is no errors
+        dispatch(hideAlert());
         // create new product
         addProduct({
             name, 
@@ -47,6 +56,7 @@ const NewProduct = ({history}) => {
                     <h2 className="text-center mb-4 font-weight-bold">
                         Add New Product
                     </h2>
+                    {alert ? <p className={alert.classes}>{alert.msg}</p> : null}
                     <form onSubmit={submitNewProduct}>
                         <div className="form-group">
                             <label>Product Name</label>
@@ -80,6 +90,10 @@ const NewProduct = ({history}) => {
             </div>
         </div>
     )
+}
+
+NewProduct.propTypes = {
+    history: PropTypes.object.isRequired
 }
 
 export default NewProduct;

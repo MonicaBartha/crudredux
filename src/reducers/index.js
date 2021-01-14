@@ -1,7 +1,9 @@
 // combines all reducers
 import {combineReducers} from 'redux';
 import productsReducer from './productsReducer';
+import alertReducer from './alertReducer';
 
 export default combineReducers({
-    products: productsReducer
+    products: productsReducer,
+    alert: alertReducer
 });

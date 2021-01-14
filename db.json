@@ -2,11 +2,11 @@
   "products": [
     {
       "id": 2,
-      "name": "Jugo de Naranja",
-      "price": "1"
+      "name": "Ananas Juice",
+      "price": "900"
     },
     {
-      "name": "Jugo de Naranja",
+      "name": "Orange Juice",
       "price": "300",
       "id": 3
     },
@@ -16,9 +16,19 @@
       "id": 4
     },
     {
-      "name": "Jugo de Fresa",
-      "price": "200",
-      "id": 5
+      "name": "Hamburger",
+      "price": 10,
+      "id": 6
+    },
+    {
+      "name": "Red Apples",
+      "price": 2,
+      "id": 7
+    },
+    {
+      "name": "Cherry",
+      "price": 2,
+      "id": 8
     }
   ]
 }

@@ -7,12 +7,14 @@ import { getProductAction } from '../actions/productActions';
 const Products = () => {
 
     const dispatch = useDispatch();
-useEffect(() => {
     
-    // api call
-    const loadProduct = () => dispatch( getProductAction() );
-    loadProduct();
-}, []);
+    useEffect(() => {
+        
+        // api call
+        const loadProduct = () => dispatch( getProductAction() );
+        loadProduct();
+        // eslint-disable-next-line
+    }, []);
 
 // get state
 const products = useSelector( state => state.products.products);

@@ -9,6 +9,7 @@ import {
     PRODUCT_DELETED_SUCCESS,
     PRODUCT_DELETED_ERROR,
     GET_EDIT_PRODUCT,
+    START_EDIT_PRODUCT,
     PRODUCT_EDITED_SUCCESS,
     PRODUCT_EDITED_ERROR
 } from '../types';
@@ -99,10 +100,10 @@ const productDownloadError = () => ({
 // select and delete product
 export function deleteProductAction(id) {
     return async (dispatch) => {
-        dispatch(getDeletedProduct(id) );
+        dispatch(getDeletedProduct(id));
 
         try {
-            const result = await axiosClient.delete(`/products/${id}`);
+            await axiosClient.delete(`/products/${id}`);
             dispatch( deleteProductSuccess() );
 
             // if is deleted, show alert
@@ -140,7 +141,35 @@ export function getEditProduct(product) {
     }
 }
 
-export const obtainProductAction = product => ({
+const obtainProductAction = product => ({
     type: GET_EDIT_PRODUCT,
     payload: product
+});
+
+// edit a registration in API and state
+export function editProductAction(product) {
+    return async (dispatch) => {
+        dispatch( editProduct() );
+        try {
+            await axiosClient.put(`/products/${product.id}`, product)
+            dispatch(editProductSuccess(product))
+        } catch (error) {
+            console.log(error);
+            dispatch(editProductError());
+        }
+    }
+}
+
+const editProduct = () => ({
+    type: START_EDIT_PRODUCT
+});
+
+const editProductSuccess = product => ({
+    type: PRODUCT_EDITED_SUCCESS,
+    payload: product
+});
+
+const editProductError = () => ({
+    type: PRODUCT_EDITED_ERROR,
+    payload: true
 })
